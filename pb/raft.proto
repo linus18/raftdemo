@@ -1,0 +1,28 @@
+syntax = "proto3";
+package raftdemo;
+
+message AppendEntriesRequest {
+    uint64 term = 1;
+    bytes leader = 2;
+}
+
+message AppendEntriesResponse {
+    uint64 term = 1;
+    bool success = 2;
+}
+
+message RequestVoteRequest {
+    uint64 term = 1;
+    bytes candidate = 2;
+}
+
+message RequestVoteResponse {
+    uint64 term = 1;
+    bool granted = 2; 
+}
+
+service LeaderElection {
+    rpc RequestVote(RequestVoteRequest) returns (RequestVoteResponse) {}
+    rpc AppendEntries(AppendEntriesRequest) returns (AppendEntriesResponse) {}
+}
+
